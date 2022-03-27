@@ -61,4 +61,40 @@ describe('ProblemeComponent', () => {
     let errors = zone.errors || {};
     expect(errors['minlength']).toBeFalsy();
   });
-});
+    it("#1 | Zone NOM invalide avec 2 caractères", () =>{
+      let zone = component.problemeForm.controls['nom'];
+      zone.setValue("a".repeat(2));
+      let errors = zone.errors || {};
+      expect(errors['minlength']).toBeTruthy();
+    });
+    it("#2 | Zone NOM valide avec 3 caractères", () =>{
+      let zone = component.problemeForm.controls['nom'];
+      zone.setValue("a".repeat(3));
+      let errors = zone.errors || {};
+      expect(errors['minlength']).toBeFalsy();
+    });
+    it("#3 | Zone NOM valide avec 200 caractères", () =>{
+      let zone = component.problemeForm.controls['nom'];
+      zone.setValue("a".repeat(200));
+      let errors = zone.errors || {};
+      expect(errors['minlength']).toBeFalsy();
+    });
+    it("#4 | Zone NOM invalide avec aucune valeur", () =>{
+      let zone = component.problemeForm.controls['nom'];
+      zone.setValue("a".repeat(0));
+      let errors = zone.errors || {};
+      expect(errors['required']).toBeTruthy();
+    });
+    it("#5 | Zone NOM valide avec 10 espaces", () =>{
+      let zone = component.problemeForm.controls['nom'];
+      zone.setValue(" ".repeat(10));
+      let errors = zone.errors || {};
+      expect(errors['minlength']).toBeFalsy();
+    });
+    it("#6 | Zone NOM valide avec 2 espaces et 1 caractère", () =>{
+      let zone = component.problemeForm.controls['nom'];
+      zone.setValue(" ".repeat(2) + "a".repeat(1));
+      let errors = zone.errors || {};
+      expect(errors['minlength']).toBeFalsy();
+    });
+  });
